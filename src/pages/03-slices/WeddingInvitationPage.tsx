@@ -1,6 +1,4 @@
-import { WhiteCard } from '../../components';
-
-
+import { WhiteCard } from '../../components'
 
 export const WeddingInvitationPage = () => {
   return (
@@ -15,9 +13,7 @@ export const WeddingInvitationPage = () => {
             <div className="-mx-3 flex flex-wrap">
               <div className="w-full px-3 sm:w-1/2">
                 <div className="mb-5">
-                  <label
-                    className="mb-3 block text-base font-medium text-[#07074D]"
-                  >
+                  <label className="mb-3 block text-base font-medium text-[#07074D]">
                     Primer Nombre
                   </label>
                   <input
@@ -30,9 +26,7 @@ export const WeddingInvitationPage = () => {
               </div>
               <div className="w-full px-3 sm:w-1/2">
                 <div className="mb-5">
-                  <label
-                    className="mb-3 block text-base font-medium text-[#07074D]"
-                  >
+                  <label className="mb-3 block text-base font-medium text-[#07074D]">
                     Apellido
                   </label>
                   <input
@@ -45,9 +39,7 @@ export const WeddingInvitationPage = () => {
               </div>
             </div>
             <div className="mb-5">
-              <label
-                className="mb-3 block text-base font-medium text-[#07074D]"
-              >
+              <label className="mb-3 block text-base font-medium text-[#07074D]">
                 ¿Cuántos invitados traerá?
               </label>
               <input
@@ -63,30 +55,18 @@ export const WeddingInvitationPage = () => {
             <div className="-mx-3 flex flex-wrap">
               <div className="w-full px-3 sm:w-1/2">
                 <div className="mb-5">
-                  <label
-                    className="mb-3 block text-base font-medium text-[#07074D]"
-                  >
+                  <label className="mb-3 block text-base font-medium text-[#07074D]">
                     Fecha de evento
                   </label>
-                  <input
-                    type="date"
-                    name="eventDate"
-                    id="eventDate"
-                  />
+                  <input type="date" name="eventDate" id="eventDate" />
                 </div>
               </div>
               <div className="w-full px-3 sm:w-1/2">
                 <div className="mb-5">
-                  <label
-                    className="mb-3 block text-base font-medium text-[#07074D]"
-                  >
+                  <label className="mb-3 block text-base font-medium text-[#07074D]">
                     Hora del evento
                   </label>
-                  <input
-                    type="time"
-                    name="eventTime"
-                    id="eventTime"
-                  />
+                  <input type="time" name="eventTime" id="eventTime" />
                 </div>
               </div>
             </div>
@@ -103,9 +83,7 @@ export const WeddingInvitationPage = () => {
                     id="radioButton1"
                     className="h-5 w-5"
                   />
-                  <label
-                    className="pl-3 text-base font-medium text-[#07074D]"
-                  >
+                  <label className="pl-3 text-base font-medium text-[#07074D]">
                     Si
                   </label>
                 </div>
@@ -116,9 +94,7 @@ export const WeddingInvitationPage = () => {
                     id="radioButton2"
                     className="h-5 w-5"
                   />
-                  <label
-                    className="pl-3 text-base font-medium text-[#07074D]"
-                  >
+                  <label className="pl-3 text-base font-medium text-[#07074D]">
                     No
                   </label>
                 </div>
@@ -126,13 +102,11 @@ export const WeddingInvitationPage = () => {
             </div>
 
             <div>
-              <button>
-                Enviar
-              </button>
+              <button>Enviar</button>
             </div>
           </form>
         </div>
       </WhiteCard>
     </>
-  );
-};
+  )
+}
