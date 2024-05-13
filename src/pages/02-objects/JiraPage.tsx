@@ -2,8 +2,18 @@ import { JiraTasks } from '../../components'
 import { useTaskStore } from '../../stores'
 
 export const JiraPage = () => {
-  const task = useTaskStore((state) => state.tasks)
-  console.log(task)
+  const pendingTasks = useTaskStore((state) => state.getTaskByStatus('open'))
+  const inProgressTasks = useTaskStore((state) =>
+    state.getTaskByStatus('in-progress'),
+  )
+  const doneTasks = useTaskStore((state) => state.getTaskByStatus('done'))
+
+  console.log({
+    pendingTasks,
+    inProgressTasks,
+    doneTasks,
+  })
+
   return (
     <>
       <h1>Tareas</h1>
