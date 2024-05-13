@@ -3,6 +3,7 @@ import { devtools, persist } from 'zustand/middleware'
 
 // import { customSessionStorage } from '../storages/session-storage.storage'
 import { firebaseStorage } from '../storages/firebase.storage'
+// import { logger } from '../middlewares/logger.middleware'
 
 interface PersonState {
   firstName: string
