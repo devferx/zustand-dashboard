@@ -1,6 +1,6 @@
 import { create, type StateCreator } from 'zustand'
 import { immer } from 'zustand/middleware/immer'
-import { devtools } from 'zustand/middleware'
+import { devtools, persist } from 'zustand/middleware'
 // import { produce } from 'immer'
 
 import type { Task, TaskStatus } from '../../interfaces'
@@ -18,10 +18,10 @@ interface TaskState {
   addTask: (title: string, status: TaskStatus) => void
 }
 
-const storeApi: StateCreator<
-  TaskState,
-  [['zustand/devtools', never], ['zustand/immer', never]]
-> = (set, get) => ({
+const storeApi: StateCreator<TaskState, [['zustand/immer', never]]> = (
+  set,
+  get,
+) => ({
   tasks: {
     'ABC-1': { id: 'ABC-1', title: 'Task 1', status: 'open' },
     'ABC-2': { id: 'ABC-2', title: 'Task 2', status: 'in-progress' },
@@ -84,4 +84,6 @@ const storeApi: StateCreator<
   },
 })
 
-export const useTaskStore = create<TaskState>()(devtools(immer(storeApi)))
+export const useTaskStore = create<TaskState>()(
+  devtools(persist(immer(storeApi), { name: 'tasks-store' })),
+)
