@@ -1,6 +1,7 @@
 import { create, type StateCreator } from 'zustand'
+import { immer } from 'zustand/middleware/immer'
 import { devtools } from 'zustand/middleware'
-import { produce } from 'immer'
+// import { produce } from 'immer'
 
 import type { Task, TaskStatus } from '../../interfaces'
 
@@ -17,7 +18,10 @@ interface TaskState {
   addTask: (title: string, status: TaskStatus) => void
 }
 
-const storeApi: StateCreator<TaskState> = (set, get) => ({
+const storeApi: StateCreator<
+  TaskState,
+  [['zustand/devtools', never], ['zustand/immer', never]]
+> = (set, get) => ({
   tasks: {
     'ABC-1': { id: 'ABC-1', title: 'Task 1', status: 'open' },
     'ABC-2': { id: 'ABC-2', title: 'Task 2', status: 'in-progress' },
@@ -33,15 +37,16 @@ const storeApi: StateCreator<TaskState> = (set, get) => ({
     set({ draggingTaskId: undefined })
   },
   changeTaskStatus: (taskId, status) => {
-    const task = get().tasks[taskId]
-    task.status = status
+    // set((state) => ({
+    //   tasks: {
+    //     ...state.tasks,
+    //     [taskId]: task,
+    //   },
+    // }))
 
-    set((state) => ({
-      tasks: {
-        ...state.tasks,
-        [taskId]: task,
-      },
-    }))
+    set((state) => {
+      state.tasks[taskId].status = status
+    })
   },
   onTaskDrop: (status) => {
     const taskId = get().draggingTaskId
@@ -58,12 +63,18 @@ const storeApi: StateCreator<TaskState> = (set, get) => ({
   addTask: (title, status) => {
     const newTask: Task = { id: crypto.randomUUID(), title, status }
 
-    set(
-      produce((state: TaskState) => {
-        state.tasks[newTask.id] = newTask
-      }),
-    )
+    set((state) => {
+      state.tasks[newTask.id] = newTask
+    })
 
+    // Immer example
+    // set(
+    //   produce((state: TaskState) => {
+    //     state.tasks[newTask.id] = newTask
+    //   }),
+    // )
+
+    // immer way
     // set((state) => ({
     //   tasks: {
     //     ...state.tasks,
@@ -73,4 +84,4 @@ const storeApi: StateCreator<TaskState> = (set, get) => ({
   },
 })
 
-export const useTaskStore = create<TaskState>()(devtools(storeApi))
+export const useTaskStore = create<TaskState>()(devtools(immer(storeApi)))
