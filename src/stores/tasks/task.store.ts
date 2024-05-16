@@ -1,5 +1,6 @@
 import { create, type StateCreator } from 'zustand'
 import { devtools } from 'zustand/middleware'
+import { produce } from 'immer'
 
 import type { Task, TaskStatus } from '../../interfaces'
 
@@ -57,12 +58,18 @@ const storeApi: StateCreator<TaskState> = (set, get) => ({
   addTask: (title, status) => {
     const newTask: Task = { id: crypto.randomUUID(), title, status }
 
-    set((state) => ({
-      tasks: {
-        ...state.tasks,
-        [newTask.id]: newTask,
-      },
-    }))
+    set(
+      produce((state: TaskState) => {
+        state.tasks[newTask.id] = newTask
+      }),
+    )
+
+    // set((state) => ({
+    //   tasks: {
+    //     ...state.tasks,
+    //     [newTask.id]: newTask,
+    //   },
+    // }))
   },
 })
 
