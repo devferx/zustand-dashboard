@@ -1,6 +1,7 @@
 import { create, type StateCreator } from 'zustand'
-import type { Task, TaskStatus } from '../../interfaces'
 import { devtools } from 'zustand/middleware'
+
+import type { Task, TaskStatus } from '../../interfaces'
 
 interface TaskState {
   tasks: Record<string, Task>
@@ -12,6 +13,7 @@ interface TaskState {
   onTaskDrop: (status: TaskStatus) => void
 
   getTaskByStatus: (status: TaskStatus) => Task[]
+  addTask: (title: string, status: TaskStatus) => void
 }
 
 const storeApi: StateCreator<TaskState> = (set, get) => ({
@@ -51,6 +53,16 @@ const storeApi: StateCreator<TaskState> = (set, get) => ({
   getTaskByStatus: (status: TaskStatus) => {
     const tasks = Object.values(get().tasks)
     return tasks.filter((task) => task.status === status)
+  },
+  addTask: (title, status) => {
+    const newTask: Task = { id: crypto.randomUUID(), title, status }
+
+    set((state) => ({
+      tasks: {
+        ...state.tasks,
+        [newTask.id]: newTask,
+      },
+    }))
   },
 })
 
