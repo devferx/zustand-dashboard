@@ -12,9 +12,29 @@ interface Props {
   tasks: Task[]
 }
 
-export const JiraTasks = ({ title, tasks }: Props) => {
+export const JiraTasks = ({ title, tasks, value }: Props) => {
+  const handleDragOver = (event: React.DragEvent<HTMLDivElement>) => {
+    event.preventDefault()
+    console.log('onDragOver')
+  }
+
+  const handleDragLeave = (event: React.DragEvent<HTMLDivElement>) => {
+    event.preventDefault()
+    console.log('handleDragLeave')
+  }
+
+  const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
+    event.preventDefault()
+    console.log('handleDrop', value)
+  }
+
   return (
-    <div className="!text-black relative flex flex-col rounded-[20px]  bg-white bg-clip-border shadow-3xl shadow-shadow-500  w-full !p-4 3xl:p-![18px]">
+    <div
+      className="!text-black relative flex flex-col rounded-[20px]  bg-white bg-clip-border shadow-3xl shadow-shadow-500  w-full !p-4 3xl:p-![18px]"
+      onDragOver={handleDragOver}
+      onDragLeave={handleDragLeave}
+      onDrop={handleDrop}
+    >
       {/* Task Header */}
       <div className="relative flex flex-row justify-between">
         <div className="flex items-center justify-center">
