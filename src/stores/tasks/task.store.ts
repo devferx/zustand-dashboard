@@ -8,6 +8,7 @@ interface TaskState {
   draggingTaskId?: string
   setDraggingTaskId: (tasdId: string) => void
   removeDraggingTaskId: () => void
+  changeStatus: (taskId: string, status: TaskStatus) => void
 
   getTaskByStatus: (status: TaskStatus) => Task[]
 }
@@ -26,6 +27,17 @@ const storeApi: StateCreator<TaskState> = (set, get) => ({
   },
   removeDraggingTaskId: () => {
     set({ draggingTaskId: undefined })
+  },
+  changeStatus: (taskId, status) => {
+    const task = get().tasks[taskId]
+    task.status = status
+
+    set((state) => ({
+      tasks: {
+        ...state.tasks,
+        [taskId]: task,
+      },
+    }))
   },
 
   getTaskByStatus: (status: TaskStatus) => {
