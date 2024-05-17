@@ -20,18 +20,6 @@ export const WeddingInvitationPage = () => {
   const isConfirmed = useWeddingBoundStore((state) => state.isConfirmed)
   const setIsConfirmed = useWeddingBoundStore((state) => state.setIsConfirmed)
 
-  const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-    console.log({
-      firstName,
-      lastName,
-      guestCount,
-      eventYYYYMMDD,
-      eventHHMM,
-      isConfirmed,
-    })
-  }
-
   return (
     <>
       <h1>Invitación de Boda</h1>
@@ -40,7 +28,7 @@ export const WeddingInvitationPage = () => {
 
       <WhiteCard className="flex items-center justify-center p-12">
         <div className="mx-auto w-full max-w-[550px]">
-          <form onSubmit={onSubmit}>
+          <form action="https://formbold.com/s/6vrXe" method="POST">
             <div className="-mx-3 flex flex-wrap">
               <div className="w-full px-3 sm:w-1/2">
                 <div className="mb-5">
