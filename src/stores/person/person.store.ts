@@ -1,6 +1,7 @@
 import { create, type StateCreator } from 'zustand'
 import { devtools, persist } from 'zustand/middleware'
 
+import { useWeddingBoundStore } from '../wedding'
 // import { customSessionStorage } from '../storages/session-storage.storage'
 // import { firebaseStorage } from '../storages/firebase.storage'
 // import { logger } from '../middlewares/logger.middleware'
@@ -35,3 +36,11 @@ export const usePersonStore = create<PersonState & Actions>()(
     }),
   ),
 )
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+usePersonStore.subscribe((nextState, _prevState) => {
+  const { firstName, lastName } = nextState
+
+  useWeddingBoundStore.getState().setFirstName(firstName)
+  useWeddingBoundStore.getState().setLastName(lastName)
+})
