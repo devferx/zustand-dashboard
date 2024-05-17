@@ -13,7 +13,9 @@ export const WeddingInvitationPage = () => {
 
   const eventYYYYMMDD = useWeddingBoundStore((state) => state.eventYYYYMMDD())
   const eventHHMM = useWeddingBoundStore((state) => state.eventHHMM())
+
   const setEventDate = useWeddingBoundStore((state) => state.setEventDate)
+  const setEventTime = useWeddingBoundStore((state) => state.setEventTime)
 
   return (
     <>
@@ -97,6 +99,7 @@ export const WeddingInvitationPage = () => {
                     name="eventTime"
                     id="eventTime"
                     value={eventHHMM}
+                    onChange={(e) => setEventTime(e.target.value)}
                   />
                 </div>
               </div>
