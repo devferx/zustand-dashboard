@@ -18,10 +18,14 @@ interface TaskState {
   addTask: (title: string, status: TaskStatus) => void
 }
 
-const storeApi: StateCreator<TaskState, [['zustand/immer', never]]> = (
-  set,
-  get,
-) => ({
+const storeApi: StateCreator<
+  TaskState,
+  [
+    ['zustand/devtools', never],
+    ['zustand/persist', unknown],
+    ['zustand/immer', never],
+  ]
+> = (set, get) => ({
   tasks: {
     'ABC-1': { id: 'ABC-1', title: 'Task 1', status: 'open' },
     'ABC-2': { id: 'ABC-2', title: 'Task 2', status: 'in-progress' },
@@ -31,10 +35,10 @@ const storeApi: StateCreator<TaskState, [['zustand/immer', never]]> = (
 
   draggingTaskId: undefined,
   setDraggingTaskId: (taskId) => {
-    set({ draggingTaskId: taskId })
+    set({ draggingTaskId: taskId }, false, 'setDragging')
   },
   removeDraggingTaskId: () => {
-    set({ draggingTaskId: undefined })
+    set({ draggingTaskId: undefined }, false, 'removeDragging')
   },
   changeTaskStatus: (taskId, status) => {
     // set((state) => ({
@@ -44,9 +48,13 @@ const storeApi: StateCreator<TaskState, [['zustand/immer', never]]> = (
     //   },
     // }))
 
-    set((state) => {
-      state.tasks[taskId].status = status
-    })
+    set(
+      (state) => {
+        state.tasks[taskId].status = status
+      },
+      false,
+      'changeTaskStatus',
+    )
   },
   onTaskDrop: (status) => {
     const taskId = get().draggingTaskId
@@ -63,9 +71,13 @@ const storeApi: StateCreator<TaskState, [['zustand/immer', never]]> = (
   addTask: (title, status) => {
     const newTask: Task = { id: crypto.randomUUID(), title, status }
 
-    set((state) => {
-      state.tasks[newTask.id] = newTask
-    })
+    set(
+      (state) => {
+        state.tasks[newTask.id] = newTask
+      },
+      false,
+      'addTask',
+    )
 
     // Immer example
     // set(
